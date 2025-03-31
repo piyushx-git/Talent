@@ -27,6 +27,8 @@ import {
   AdminPanelSettings,
 } from '@mui/icons-material';
 import { AuthContext } from '../App';
+import { auth } from '../firebase/firebase';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -38,6 +40,7 @@ const Login = () => {
     role: 'student',
   });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,43 +60,97 @@ const Login = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError('');
+
     if (!formData.email || !formData.password) {
       setError('Please fill in all fields');
+      setLoading(false);
       return;
     }
     if (!formData.email.includes('@')) {
       setError('Please enter a valid email address');
+      setLoading(false);
       return;
     }
     if (formData.password.length < 8) {
       setError('Password must be at least 8 characters long');
+      setLoading(false);
       return;
     }
 
-    login({ ...formData });
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, formData.email, formData.password);
+      login({ ...formData, uid: userCredential.user.uid });
 
-    switch (formData.role) {
-      case 'student':
-        navigate('/student/dashboard');
-        break;
-      case 'mentor':
-        navigate('/mentor/dashboard');
-        break;
-      case 'organizer':
-        navigate('/organizer/dashboard');
-        break;
-      case 'admin':
-        navigate('/admin/dashboard');
-        break;
-      default:
-        navigate('/student/dashboard');
+      switch (formData.role) {
+        case 'student':
+          navigate('/student/dashboard');
+          break;
+        case 'mentor':
+          navigate('/mentor/dashboard');
+          break;
+        case 'organizer':
+          navigate('/organizer/dashboard');
+          break;
+        case 'admin':
+          navigate('/admin/dashboard');
+          break;
+        default:
+          navigate('/student/dashboard');
+      }
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleSocialLogin = (provider) => {
-    console.log(`Logging in with ${provider}`);
+  const handleSocialLogin = async (provider) => {
+    setLoading(true);
+    setError('');
+    
+    try {
+      let authProvider;
+      switch (provider) {
+        case 'Google':
+          authProvider = new GoogleAuthProvider();
+          break;
+        // Add other providers here if needed
+        default:
+          throw new Error('Provider not supported');
+      }
+
+      const result = await signInWithPopup(auth, authProvider);
+      login({ 
+        email: result.user.email,
+        role: formData.role,
+        uid: result.user.uid
+      });
+
+      switch (formData.role) {
+        case 'student':
+          navigate('/student/dashboard');
+          break;
+        case 'mentor':
+          navigate('/mentor/dashboard');
+          break;
+        case 'organizer':
+          navigate('/organizer/dashboard');
+          break;
+        case 'admin':
+          navigate('/admin/dashboard');
+          break;
+        default:
+          navigate('/student/dashboard');
+      }
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

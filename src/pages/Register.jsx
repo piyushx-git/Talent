@@ -31,6 +31,8 @@ import {
   AdminPanelSettings,
 } from '@mui/icons-material';
 import { AuthContext } from '../App';
+import { auth } from '../firebase/firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -47,6 +49,7 @@ const Register = () => {
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -66,49 +69,70 @@ const Register = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError('');
     
     // Validation
     if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
       setError('Please fill in all fields');
+      setLoading(false);
       return;
     }
     if (!formData.email.includes('@')) {
       setError('Please enter a valid email address');
+      setLoading(false);
       return;
     }
     if (formData.password.length < 8) {
       setError('Password must be at least 8 characters long');
+      setLoading(false);
       return;
     }
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
+      setLoading(false);
       return;
     }
 
-    // Set success state
-    setSuccess(true);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
 
-    // Login with credentials and selected role
-    login({ ...formData });
+      // Set success state
+      setSuccess(true);
 
-    // Navigate based on role
-    switch(formData.role) {
-      case 'student':
-        navigate('/student/dashboard');
-        break;
-      case 'mentor':
-        navigate('/mentor/dashboard');
-        break;
-      case 'organizer':
-        navigate('/organizer/dashboard');
-        break;
-      case 'admin':
-        navigate('/admin/dashboard');
-        break;
-      default:
-        navigate('/student/dashboard');
+      // Login with credentials and selected role
+      login({ 
+        ...formData,
+        uid: userCredential.user.uid
+      });
+
+      // Navigate based on role
+      switch(formData.role) {
+        case 'student':
+          navigate('/student/dashboard');
+          break;
+        case 'mentor':
+          navigate('/mentor/dashboard');
+          break;
+        case 'organizer':
+          navigate('/organizer/dashboard');
+          break;
+        case 'admin':
+          navigate('/admin/dashboard');
+          break;
+        default:
+          navigate('/student/dashboard');
+      }
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
