@@ -2,22 +2,16 @@ import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
   Box,
-  Container,
   Paper,
   Typography,
   TextField,
   Button,
   InputAdornment,
   IconButton,
-  Divider,
-  Alert,
-  Fade,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   ToggleButtonGroup,
   ToggleButton,
+  Alert,
+  Divider,
 } from '@mui/material';
 import {
   Visibility,
@@ -41,24 +35,24 @@ const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    role: 'student', // Default role
+    role: 'student',
   });
   const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
-    setError(''); // Clear error when user types
+    setError('');
   };
 
   const handleRoleChange = (event, newRole) => {
     if (newRole !== null) {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
-        role: newRole
+        role: newRole,
       }));
     }
   };
@@ -78,11 +72,9 @@ const Login = () => {
       return;
     }
 
-    // Login with credentials and selected role
     login({ ...formData });
 
-    // Navigate based on role
-    switch(formData.role) {
+    switch (formData.role) {
       case 'student':
         navigate('/student/dashboard');
         break;
@@ -102,7 +94,6 @@ const Login = () => {
 
   const handleSocialLogin = (provider) => {
     console.log(`Logging in with ${provider}`);
-    // Implement social login here
   };
 
   return (
@@ -117,16 +108,7 @@ const Login = () => {
         bgcolor: 'rgba(255, 255, 255, 0.95)',
       }}
     >
-      <Typography
-        component="h1"
-        variant="h4"
-        gutterBottom
-        sx={{
-          fontWeight: 700,
-          color: 'primary.main',
-          mb: 3,
-        }}
-      >
+      <Typography component="h1" variant="h4" gutterBottom sx={{ fontWeight: 700, color: 'primary.main', mb: 3 }}>
         Welcome to TalentHunt
       </Typography>
 
@@ -141,33 +123,22 @@ const Login = () => {
       )}
 
       <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%', mt: 1 }}>
-        {/* Role Selection */}
         <Box sx={{ mb: 3 }}>
           <Typography variant="subtitle1" gutterBottom>
             Select your role
           </Typography>
-          <ToggleButtonGroup
-            value={formData.role}
-            exclusive
-            onChange={handleRoleChange}
-            fullWidth
-            sx={{ mb: 2 }}
-          >
+          <ToggleButtonGroup value={formData.role} exclusive onChange={handleRoleChange} fullWidth sx={{ mb: 2 }}>
             <ToggleButton value="student" sx={{ py: 1 }}>
-              <School sx={{ mr: 1 }} />
-              Student
+              <School sx={{ mr: 1 }} /> Student
             </ToggleButton>
             <ToggleButton value="mentor" sx={{ py: 1 }}>
-              <Person sx={{ mr: 1 }} />
-              Mentor
+              <Person sx={{ mr: 1 }} /> Mentor
             </ToggleButton>
             <ToggleButton value="organizer" sx={{ py: 1 }}>
-              <Groups sx={{ mr: 1 }} />
-              Organizer
+              <Groups sx={{ mr: 1 }} /> Organizer
             </ToggleButton>
             <ToggleButton value="admin" sx={{ py: 1 }}>
-              <AdminPanelSettings sx={{ mr: 1 }} />
-              Admin
+              <AdminPanelSettings sx={{ mr: 1 }} /> Admin
             </ToggleButton>
           </ToggleButtonGroup>
         </Box>
@@ -213,11 +184,7 @@ const Login = () => {
             ),
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={() => setShowPassword(!showPassword)}
-                  edge="end"
-                >
+                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
@@ -229,14 +196,7 @@ const Login = () => {
           type="submit"
           fullWidth
           variant="contained"
-          sx={{
-            mt: 3,
-            mb: 2,
-            py: 1.5,
-            fontSize: '1rem',
-            textTransform: 'none',
-            boxShadow: 2,
-          }}
+          sx={{ mt: 3, mb: 2, py: 1.5, fontSize: '1rem', textTransform: 'none', boxShadow: 2 }}
         >
           Sign In
         </Button>
@@ -263,37 +223,19 @@ const Login = () => {
         <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
           <IconButton
             onClick={() => handleSocialLogin('Google')}
-            sx={{
-              border: 1,
-              borderColor: 'divider',
-              '&:hover': {
-                bgcolor: 'action.hover',
-              },
-            }}
+            sx={{ border: 1, borderColor: 'divider', '&:hover': { bgcolor: 'action.hover' } }}
           >
             <Google />
           </IconButton>
           <IconButton
             onClick={() => handleSocialLogin('GitHub')}
-            sx={{
-              border: 1,
-              borderColor: 'divider',
-              '&:hover': {
-                bgcolor: 'action.hover',
-              },
-            }}
+            sx={{ border: 1, borderColor: 'divider', '&:hover': { bgcolor: 'action.hover' } }}
           >
             <GitHub />
           </IconButton>
           <IconButton
             onClick={() => handleSocialLogin('LinkedIn')}
-            sx={{
-              border: 1,
-              borderColor: 'divider',
-              '&:hover': {
-                bgcolor: 'action.hover',
-              },
-            }}
+            sx={{ border: 1, borderColor: 'divider', '&:hover': { bgcolor: 'action.hover' } }}
           >
             <LinkedIn />
           </IconButton>
@@ -303,4 +245,4 @@ const Login = () => {
   );
 };
 
-export default Login; 
+export default Login;
