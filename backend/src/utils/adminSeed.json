@@ -1,0 +1,48 @@
+[
+  {
+    "name": "Admin User",
+    "email": "admin@talent.com",
+    "password": "$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy",
+    "role": "admin",
+    "department": "Administration",
+    "bio": "System Administrator",
+    "socialLinks": {
+      "linkedin": "",
+      "github": ""
+    },
+    "student": null,
+    "mentor": null,
+    "organizer": null,
+    "createdAt": "2024-04-20T00:00:00.000Z",
+    "updatedAt": "2024-04-20T00:00:00.000Z"
+  },
+  {
+    "name": "Technical Admin",
+    "email": "techadmin@talent.com",
+    "password": "$2a$10$zPzGHX9xZWxXMHBGxV1fNOYxF.NqR7eHF/F1BqXKTBTD3BzYS9wXm",
+    "role": "admin",
+    "student": null,
+    "mentor": null,
+    "organizer": null,
+    "department": "Technical",
+    "bio": "Technical Administrator"
+  },
+  {
+    "name": "Content Admin",
+    "email": "contentadmin@talent.com",
+    "password": "$2a$12$k8Y1DB6KhzYr1mHDnHHRvOXVmr6rpJJQ1GQwkzX7BtL0m2kwz4X6.",
+    "role": "admin",
+    "student": null,
+    "mentor": null,
+    "organizer": null
+  },
+  {
+    "name": "Operations Admin",
+    "email": "opsadmin@talent.com",
+    "password": "$2a$12$k8Y1DB6KhzYr1mHDnHHRvOXVmr6rpJJQ1GQwkzX7BtL0m2kwz4X6.",
+    "role": "admin",
+    "student": null,
+    "mentor": null,
+    "organizer": null
+  }
+] 
