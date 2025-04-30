@@ -1,4 +1,4 @@
-# 💡 Talent | Full Stack Web Application
+# 💡 TalentHunt | Full Stack Web Application
 
 A 4th Semester Full-Stack Development Project that empowers students to connect, collaborate, and compete — with built-in mentorship and intelligent team formation.
 
