@@ -81,7 +81,6 @@ https://drive.google.com/drive/folders/1CAxF6ZvPTNfuecm2lDpsdUdMHDxAUQdl
 
 ### Prerequisites
 - Node.js v18+ (for React)
-- Python 3.9+ & pip (for Django)
 - Sqlite
 - `.env` files for secrets (see `.env.example`)
 
