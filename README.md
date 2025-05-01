@@ -43,11 +43,10 @@ To create a full-fledged, scalable application that streamlines the process of *
 
 - 🔑 Secure User Auth (Signup, Login, Reset)
 - 🛠️ Dynamic CRUD for key entities
-- 🧑‍🏫 Role Management (Student / Mentor / Admin)
+- 🧑‍🏫 Role Management (Student / Mentor / Admin / Organizer)
 - 📱 Fully responsive across devices
 - 🔁 Real-time data sync using sockets
 - 🔍 Search, filters, and voice accessibility features
-- 🎤 **UX Enhancements**: Voice control access & adjustable font size
 
 ---
 
