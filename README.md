@@ -54,6 +54,14 @@ To create a full-fledged, scalable application that streamlines the process of *
 
 https://drive.google.com/drive/folders/1CAxF6ZvPTNfuecm2lDpsdUdMHDxAUQdl
 
+---
+
+## 🧑‍🏫 Presentation
+
+[📊 View the presentation](./fsd.pdf)
+
+---
+
 ## 📸 Screenshots
 
 <!-- Add your actual image paths/screenshots here -->
